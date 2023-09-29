@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse input</title>
+    <style>
+        body{
+            background-color: rgb(74, 73, 73);
+        }
+        #input-container {
+            text-align: center;
+            margin-top: 400px; 
+            
+        }
+        .inp{
+            width: 400px;
+            height: 50px;
+            border-radius: 40px;
+            border: 0;
+            padding-left: 20px;
+            background-color: rgb(32, 32, 32);
+
+        }
+        .output{
+            font-size: 20px;
+            margin-top: 30px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div id="input-container">
+        <input class="inp" type="text" id="input" placeholder="Type something">
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        function reverseString(inputString) {
+            return inputString.split('').reverse().join('');
+        }
+
+        const inputElement = document.getElementById('input');
+        const outputElement = document.getElementById('output');
+
+        inputElement.addEventListener('input', () => {
+            outputElement.textContent = '';
+
+            const inputValue = inputElement.value;
+
+            setTimeout(() => {
+                const reversedValue = reverseString(inputValue);
+                outputElement.textContent = reversedValue;
+            }, 500);
+        });
+    </script>
+</body>
+</html>

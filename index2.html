@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Github</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #6b6b6b;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        div {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #808080;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+            margin: auto;
+
+        }
+        .btn{
+            display: flex;
+            
+        }
+
+        #res {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+            font-size: 16px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Github Profile Info</h1>
+    <div class="btn">
+        <button id="fetchVal">Fetch Valid Profile</button>
+        <button id="fetchInval">Fetch Invalid Profile</button>
+    </div>
+        <p id="res"></p>
+        <pre id="profData"></pre>
+    
+
+    <script>
+        document.getElementById("fetchVal").addEventListener("click", function () {
+            fetchGithubProfile(true);
+        });
+
+        document.getElementById("fetchInval").addEventListener("click", function () {
+            fetchGithubProfile(false);
+        });
+
+        function fetchGithubProfile(validRequest) {
+            const username = "KristinaRiabova";
+            const url = validRequest
+                ? `https://api.github.com/users/${username}`
+                : `https://api.github.com/users/${username}/invalidpath`;
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP Error: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if (validRequest) {
+                        document.getElementById("res").textContent = "Successful Request";
+                    } else {
+                        document.getElementById("res").textContent = "Intentional Error";
+                    }
+                    document.getElementById("profData").textContent = data;
+                })
+                .catch(error => {
+                    document.getElementById("res").textContent = `Error: ${error.message}`;
+                    document.getElementById("profData").textContent = "";
+                });
+        }
+    </script>
+</body>
+
+</html>
